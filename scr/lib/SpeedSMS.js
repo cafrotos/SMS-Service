@@ -1,8 +1,9 @@
-var error = require('http-errors');
+/**
+ * Created by duongdx on 4/30/18.
+ */
 var http = require('http');
 var https = require('https');
 const ACCESS_TOKEN = "iqPsZBiS8v4NutOK1Bkg3lljzCSAx_O8";
-var status = false;
 
 const sendSMS = function(phones, content, type, sender) {
     var url = 'api.speedsms.vn';
@@ -36,26 +37,19 @@ const sendSMS = function(phones, content, type, sender) {
             var json = JSON.parse(body);
             if (json.status == 'success') {
                 console.log("send sms success")
-                status = true;
             }
             else {
                 console.log("send sms failed " + body);
-                
             }
         });
     });
 
     req.on('error', function(e) {
         console.log("send sms failed: " + e);
-        e = JSON.parse(e);
-        
     });
 
     req.write(params);
     req.end();
-
-    req.write()
-    
 }
 
 module.exports = sendSMS;

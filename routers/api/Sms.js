@@ -36,7 +36,7 @@ router.post('/sms', (req, res, next) => {
         db.smsdata.create(smsInfo)
         .then(sms => {
             console.log("Tin nhắn đang được gửi...")
-            //event.emit(constants.SMS_SENT, smsInfo);
+            event.emit(constants.SMS_SENT, smsInfo);
             res.status(200).json(smsInfo);
         })
         .catch(err => {
