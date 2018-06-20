@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "node ./test/smsTest",
+    "test": "mocha ./test/smsTest",
     "start": "node server.js"
   },
   "repository": {

@@ -5,8 +5,9 @@ describe("Sent sms", () => {
     it("Không thể xác thực.(sai mã token)", () => {
         let smsInfo = {
             phone: "0946669083",
+            contents: "abcxyz",
             shop_receiver: "saotruc.vn",
-            contents: "asdjfhuerjhfa"
+            type:"1"
         }
 
         let options = {
@@ -68,5 +69,28 @@ describe("Sent sms", () => {
             done();
         })
         
+    })
+
+    it("Gửi thành công", () => {
+        let smsInfo = {
+            phone: "0946669083",
+            contents: "abcxyz",
+            shop_receiver: "saotruc.vn",
+            type:"1"
+        }
+
+        let options = {
+            url: 'http://localhost:3000/sms',
+            headers: {
+                'token': 'qwerty'
+            },
+            form: smsInfo
+        };
+
+        request.post(options, (errors, response, body) => {
+            response = response.toJSON();
+            expect(response.statusCode).to.equal(200);
+            done();
+        })
     })
 })
