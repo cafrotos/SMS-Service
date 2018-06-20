@@ -1,26 +1,20 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('smsdata', {
+    return queryInterface.createTable('integrations', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      sender: {
+      name: {
         type: Sequelize.STRING
       },
-      shop_receiver: {
+      token: {
         type: Sequelize.STRING
       },
-      contents: {
-        type: Sequelize.STRING
-      },
-      phone: {
-        type: Sequelize.STRING
-      },
-      status: {
+      enable: {
         type: Sequelize.BOOLEAN
       },
       createdAt: {
@@ -34,6 +28,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('smsdata');
+    return queryInterface.dropTable('integrations');
   }
 };

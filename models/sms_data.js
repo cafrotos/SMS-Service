@@ -1,14 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var smsdata = sequelize.define('smsdata', {
+  var sms_data = sequelize.define('sms_data', {
     sender: DataTypes.STRING,
     shop_receiver: DataTypes.STRING,
     contents: DataTypes.STRING,
     phone: DataTypes.STRING,
-    status: DataTypes.BOOLEAN
+    is_sent: DataTypes.BOOLEAN
   }, {});
-  smsdata.associate = function(models) {
+  sms_data.associate = function(models) {
     // associations can be defined here
   };
-  return smsdata;
+  return sms_data;
 };
