@@ -25,31 +25,22 @@ router.post('/sms', (req, res, next) => {
     
     smsInfo.sender = senderValidation(token);
 
-    if(smsInfo.type < 1 || smsInfo.type > 4) {
-        let err = new createErr(400, "Loại tin nhắn không chính xác")
+    if(!smsValidation(smsInfo)){
+        let err = new createErr(400, "Thông tin gửi SMS không đúng");
         next(err);
     }
 
-    if(!smsValidation(smsInfo)){
-        let err = new createErr(400, "Thông tin gửi SMS không đúng");
+    else if(smsInfo.type < 1 || (smsInfo.type > 4 && smsInfo.type != 6)) {
+        let err = new createErr(400, "Loại tin nhắn không chính xác")
         next(err);
     }
 
     else {
         let event = evenEmitter.getInstance();
 
-        db.sms_data.create(smsInfo)
-        .then(sms => {
-            console.log("Tin nhắn đang được gửi...")
-            smsInfo.id = sms.dataValues.id;
+        event.emit(constants.SMS_CREATE, smsInfo);
             
-            event.emit(constants.SMS_CREATE, smsInfo);
-            
-            res.status(200).json(smsInfo);
-        })
-        .catch(err => {
-            next(err);
-        });
+        res.status(200).json(smsInfo);
     }
 })
 

@@ -7,6 +7,7 @@ module.exports = (req, res, next) => {
     if(token != sender.shippovn && token != sender.shippophil) {
         let err = new Err(400, "Không nhận xác thực");
         next(err);
+        console.log()
     }
 
     next();

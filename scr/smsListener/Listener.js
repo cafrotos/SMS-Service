@@ -1,6 +1,6 @@
 const constants = require('./constants');
 const evenEmitter = require('../lib/EvenEmiter');
-const ManagerSMS = require('../lib/SmsManager/SmsManager');
+const ManagerSMS = require('../lib/SMSManager');
 const db = require('../../models');
 
 let Events = evenEmitter.getInstance();
@@ -8,16 +8,8 @@ let Events = evenEmitter.getInstance();
 
 //gửi sms
 Events.on(constants.SMS_CREATE, async (smsInfo) => {
-    let status = await ManagerSMS.getServiceAndSendSMS(smsInfo);
+    let data = await ManagerSMS.getInstance().sendSMS(smsInfo)
+    console.log(data);
     
-    // sau khi gửi xong cập nhật luôn trạng thái tin nhắn trên database
-    db.sms_data.findById(smsInfo.id)
-            .then((sms) => {
-                if (sms) {
-                    let newsms = {is_sent: status};
-                    sms.updateAttributes(newsms);
-                }
-            }).catch((err) => {
-                console.info(err);
-            })
+    ManagerSMS.getInstance().updateSMSinDB(data);
 })
