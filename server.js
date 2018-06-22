@@ -3,7 +3,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const evenHandler = require('./scr/smsListener/EvenHandler');
 let helmet = require('helmet');
-
+let morgan = require('morgan')
+let port = process.env.PORT || 8080
+    
+app.use('/', morgan('dev'));
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -25,28 +28,9 @@ app.use((err, req, res, next) => {
     }})
 })
 
-let port = normalizePort(process.env.PORT || 3000);
 
 app.listen(port, () => {
     console.log(port);
 })
-
-function normalizePort(val) {
-    let port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        // named pipe
-        console.log(val)
-        return val;
-    }
-
-    if (port >= 0) {
-        // port number
-        console.log(port);
-        return port;
-    }
-
-    return false;
-}
 
 evenHandler();

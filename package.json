@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha ./test/smsTest",
+    "test": "mocha ./test",
     "start": "node server.js"
   },
   "repository": {
@@ -22,6 +22,7 @@
     "express": "^4.16.3",
     "helmet": "^3.12.1",
     "mocha": "^5.2.0",
+    "morgan": "^1.9.0",
     "nodemon": "^1.17.5",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",

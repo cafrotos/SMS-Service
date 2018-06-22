@@ -12,7 +12,7 @@ class SpeedSMSService extends require('../BaseIntegration') {
 
     async sendAllSMS(smsInfo, brandName = ''){
         
-        await this.getIntegrationInfo();
+        await this.getIntegration();
 
         if(smsInfo.type == 3 && !brandName){
             brandName = smsInfo.sender;
