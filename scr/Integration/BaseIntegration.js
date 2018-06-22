@@ -37,15 +37,20 @@ class BaseIntegration {
 
     async updateIntegration(data){
 
-        if(!data || !data.name || !data.token || !data.enable){
+        if(!data || !data.oldname || !data.name || !data.token || !data.enable){
             console.log("Thiếu thông tin đối tác cập nhật");
             return null;
         }
         
-        db.findOne({where: {name: data.name}})
+        db.findOne({where: {name: data.oldname}})
             .then(integration => {
                 if(integration){
-                    integration.updateAttributes(data);
+                    let newData = {
+                        name: data.name,
+                        token: data.token,
+                        enable: data.enable
+                    }
+                    integration.updateAttributes(newData);
                 }
             })
             .catch(err => console.log(err));
