@@ -13,10 +13,12 @@ Events.on(constants.SMS_CREATE, (smsInfo) => {
     } catch (error) {
         console.log(error);
     }
+    console.log();
 })
 
 //cập nhật tin nhắn trên database
 Events.on(constants.SMS_SENT, (data) => {
-    
+    console.log();
     ManagerSMS.getInstance().updateSMSinDB(data);
+
 })

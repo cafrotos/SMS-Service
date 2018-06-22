@@ -19,10 +19,10 @@ class SMSManage{
         }
 
         //gửi sang SpeedSMS
-        //let tranId = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
+        let tranId = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
 
         //giả lập đã gửi thành công vs mã tranId = 1235;
-        let tranId = '1235';
+        //let tranId = '1235';
 
 
         if(!tranId){

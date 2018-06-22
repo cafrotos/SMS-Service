@@ -1,12 +1,6 @@
-const db = require('../../../models');
 const ResponeClient = require('./SpeedSMSClient')
-class SpeedSMSService {
 
-    constructor(name){
-        this.instance = name;
-        this.token = '';
-        this.enable = false;
-    }
+class SpeedSMSService extends require('../BaseIntegration') {
 
     static getInstance(){
         if(!SpeedSMSService.instance){
@@ -14,14 +8,6 @@ class SpeedSMSService {
         }
 
         return SpeedSMSService.instance;
-    }
-
-    async getIntegrationInfo(){
-        await db.integration.findOne({where:{name: this.instance}})
-            .then(info => {
-                this.token = info.dataValues.token;
-                this.enable = info.dataValues.enable;
-            })
     }
 
     async sendAllSMS(smsInfo, brandName = ''){
