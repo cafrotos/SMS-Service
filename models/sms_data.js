@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var sms_data = sequelize.define('sms_data', {
+    tranid: DataTypes.STRING,
     sender: DataTypes.STRING,
     shop_receiver: DataTypes.STRING,
     contents: DataTypes.STRING,

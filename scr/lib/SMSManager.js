@@ -18,46 +18,45 @@ class SMSManage{
             throw Error("Thiếu thông tin đối tác")
         }
 
-        let data = {
-            id: '',
-            tranID: ''
-        };
+        //gửi sang SpeedSMS
+        //let tranId = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
+
+        //giả lập đã gửi thành công vs mã tranId = 1235;
+        let tranId = '1235';
+
+
+        if(!tranId){
+            return null;
+        }
 
         //create len database
         db.sms_data.create({
+            tranid: tranId,
             sender: smsInfo.sender,
             shop_receiver: smsInfo.shop_receiver,
             contents: smsInfo.contents,
             phone: smsInfo.phone
           })
-          .then(res => {
-                data.id = res.dataValues.id;
-                //console.log(data.id);
-          })
+          .then()
           .catch(err => console.log(err));
-
-        //gửi sang SpeedSMS
-        data.tranID = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
         
-        // console.log(data.tranID);
-        return data;
     }
 
     async updateSMSinDB(data){
-        let status = await SpeedSMSService.getInstance().checkStatusSMS(data.tranID);
-        if(status == 1) status = true;
-        else status = false;
 
-        console.log(status);
+        if(data.status == 0) data.status = true;
+        else data.status = false;
 
-        db.sms_data.findById(data.id)
+        db.sms_data.findOne({where: {tranid: data.tranId}})
             .then((res) => {
                 if(res){
-                    let newSMS = {is_sent: status};
+                    let newSMS = {is_sent: data.status};
                     res.updateAttributes(newSMS);
-                    console.log('Update thành công')
                 }
             })
+            .catch(err => console.log(err));
     }
 }
+
+
 module.exports = SMSManage;

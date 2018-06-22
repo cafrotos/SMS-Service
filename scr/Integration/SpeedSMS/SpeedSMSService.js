@@ -50,26 +50,16 @@ class SpeedSMSService {
         }catch(err){
             console.log(err);
         };
-        console.log(respone);
+
+        if(respone.status === 'error'){
+            console.log("Lỗi: " + respone.message);
+            return null;
+        }
+
         return respone.data.tranId;
 
     }
 
-    async checkStatusSMS(tranID){
-        await this.getIntegrationInfo()
-
-        let url = 'sms/status/' + tranID;
-        let method = 'GET';
-
-        let status;
-        try{
-            status = await ResponeClient.getInstance().requestToAPI(url, method, '', this.token);
-        }catch(err){
-            console.log(err);
-        }
-
-        return status.data[0].status;
-    }
 }
 
 

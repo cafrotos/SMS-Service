@@ -7,9 +7,16 @@ let Events = evenEmitter.getInstance();
 
 
 //gửi sms
-Events.on(constants.SMS_CREATE, async (smsInfo) => {
-    let data = await ManagerSMS.getInstance().sendSMS(smsInfo)
-    console.log(data);
+Events.on(constants.SMS_CREATE, (smsInfo) => {
+    try {
+        ManagerSMS.getInstance().sendSMS(smsInfo)   
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+//cập nhật tin nhắn trên database
+Events.on(constants.SMS_SENT, (data) => {
     
     ManagerSMS.getInstance().updateSMSinDB(data);
 })

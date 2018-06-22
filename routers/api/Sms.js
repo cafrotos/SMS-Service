@@ -1,5 +1,6 @@
 const smsValidation = require('../validation/smsValidation');
 const senderValidation = require('../validation/senderValidation');
+const deliReportValidation = require('../validation/deliReportValidation');
 const router = require('express').Router();
 const db = require('../../models');
 const bodyParser = require('body-parser');
@@ -43,5 +44,6 @@ router.post('/sms', (req, res, next) => {
         res.status(200).json(smsInfo);
     }
 })
+
 
 module.exports = router;
