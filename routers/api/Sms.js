@@ -10,12 +10,8 @@ const constants = require('../../scr/smsListener/constants')
 const sequelize = require('sequelize');
 
 
-router.get('/', (req, res, next) => {
-    res.send('Welcome');
-})
-
 router.get('/sms', (req, res, next) => {
-    res.send('Send your sms');
+    res.status(200).send('Send your sms');
 })
 
 router.post('/sms', (req, res, next) => {

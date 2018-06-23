@@ -35,7 +35,8 @@ class SMSManage{
             sender: smsInfo.sender,
             shop_receiver: smsInfo.shop_receiver,
             contents: smsInfo.contents,
-            phone: smsInfo.phone
+            phone: smsInfo.phone,
+            is_sent: false
           })
           .then()
           .catch(err => console.log(err));
@@ -46,6 +47,7 @@ class SMSManage{
 
         if(data.status == 0) data.status = true;
         else data.status = false;
+        console.log(data);
 
         db.sms_data.findOne({where: {tranid: data.tranId}})
             .then((res) => {

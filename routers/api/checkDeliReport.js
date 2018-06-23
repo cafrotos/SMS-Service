@@ -15,13 +15,15 @@ router.get('/status', (req, res) => {
 })
 
 router.post('/status', (req, res, next) => {
-    if(!deliReportValidation(req.body)){
-        let err = new createErr(400, "Có điều gì không ổn");
-        next(err);
-    }
+    // if(!deliReportValidation(req.body)){
+    //     let err = new createErr(400, "Có điều gì không ổn");
+    //     next(err);
+    // }
+
 
     let data = req.body;
-
+    data.tranId = data.tranId + '';
+    console.log(data);
 
     let events = evenEmitter.getInstance();
     events.emit(constants.SMS_SENT, data);

@@ -18,7 +18,7 @@ Events.on(constants.SMS_CREATE, (smsInfo) => {
 
 //cập nhật tin nhắn trên database
 Events.on(constants.SMS_SENT, (data) => {
-    console.log();
+    console.log(data);
     ManagerSMS.getInstance().updateSMSinDB(data);
 
 })
