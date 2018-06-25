@@ -1,3 +1,5 @@
+'use strict'
+
 const SpeedSMSService = require('../Integration/SpeedSMS/SpeedSMSService');
 const db = require('../../models');
 class SMSManage{
@@ -20,34 +22,34 @@ class SMSManage{
 
         //gửi sang SpeedSMS
         let tranId = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
+        let status = 'Đang gửi';
 
         //giả lập đã gửi thành công vs mã tranId = 1235;
         //let tranId = '1235';
 
 
         if(!tranId){
-            return null;
+            tranId = null;
+            status = "Không gửi được"
         }
 
-        //create len database
-        db.sms_data.create({
-            tranid: tranId,
-            sender: smsInfo.sender,
-            shop_receiver: smsInfo.shop_receiver,
-            contents: smsInfo.contents,
-            phone: smsInfo.phone,
-            is_sent: false
-          })
-          .then()
-          .catch(err => console.log(err));
+        //update in database
+        db.sms_data.findById(smsInfo.id)
+            .then((res) => {
+                if(res){
+                    let newSMS = {tranid: tranId, is_sent: status};
+                    res.updateAttributes(newSMS);
+                }
+            })
+            .catch(err => console.log(err));
         
     }
 
     async updateSMSinDB(data){
-
-        if(data.status == 0) data.status = true;
-        else data.status = false;
-        console.log(data);
+    
+        if(data.status == 0) data.status = 'Đã gửi';
+        else if(data.status > 0 && data.status < 64) data.status = 'Tạm thời thất bại';
+        else data.status = "Gửi thất bại" 
 
         db.sms_data.findOne({where: {tranid: data.tranId}})
             .then((res) => {
@@ -59,6 +61,8 @@ class SMSManage{
             .catch(err => console.log(err));
     }
 }
+
+SMSManage.instance = null
 
 
 module.exports = SMSManage;

@@ -1,3 +1,5 @@
+'use strict'
+
 const constants = require('./constants');
 const evenEmitter = require('../lib/EvenEmiter');
 const ManagerSMS = require('../lib/SMSManager');
@@ -18,7 +20,7 @@ Events.on(constants.SMS_CREATE, (smsInfo) => {
 
 //cập nhật tin nhắn trên database
 Events.on(constants.SMS_SENT, (data) => {
-    console.log(data);
+    console.log();
     ManagerSMS.getInstance().updateSMSinDB(data);
 
 })

@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       is_sent: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

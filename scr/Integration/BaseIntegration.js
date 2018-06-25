@@ -1,18 +1,18 @@
+'use strict'
+
 const db = require('../../models');
 
 class BaseIntegration {
 
     constructor(name){
-        this.instance = name;
-        this.token = '';
-        this.enable = false;
+        this.name = name;
     }
 
     async getIntegration(){
-        await db.integration.findOne({where:{name: this.instance}})
+        await db.integration.findOne({where:{name: this.name}})
             .then(info => {
-                this.token = info.dataValues.token;
-                this.enable = info.dataValues.enable;
+                BaseIntegration.token = info.dataValues.token;
+                BaseIntegration.enable = info.dataValues.enable;
             })
     }
 
@@ -58,5 +58,8 @@ class BaseIntegration {
 
 }
 
+BaseIntegration.token = '';
+BaseIntegration.instance = '';
+BaseIntegration.enable = null;
 
 module.exports = BaseIntegration

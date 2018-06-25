@@ -1,3 +1,5 @@
+'use strict'
+
 const ResponeClient = require('./SpeedSMSClient')
 
 class SpeedSMSService extends require('../BaseIntegration') {
@@ -12,7 +14,7 @@ class SpeedSMSService extends require('../BaseIntegration') {
 
     async sendAllSMS(smsInfo, brandName = ''){
         
-        await this.getIntegration();
+        if(!SpeedSMSService.token)await this.getIntegration();
 
         if(smsInfo.type == 3 && !brandName){
             brandName = smsInfo.sender;
@@ -32,7 +34,7 @@ class SpeedSMSService extends require('../BaseIntegration') {
 
         let respone;
         try{
-            respone = await ResponeClient.getInstance().requestToAPI(url, method, data, this.token);
+            respone = await ResponeClient.getInstance().requestToAPI(url, method, data, SpeedSMSService.token);
         }catch(err){
             console.log(err);
         };

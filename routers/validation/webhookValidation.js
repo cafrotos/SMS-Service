@@ -1,3 +1,5 @@
+'use strict'
+
 var deliReportValidation = (data) => {
     if(!data || !data.type || !data.tranId || !data.phone || !data.status)
         return false;

@@ -1,3 +1,5 @@
+'use strict'
+
 const rq = require('request-promise')
 
 class BaseClient {

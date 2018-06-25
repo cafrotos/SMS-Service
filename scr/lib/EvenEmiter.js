@@ -1,3 +1,5 @@
+'use strict'
+
 var EventEmitter = require('events');
 
 class ModelEventEmitter extends EventEmitter{

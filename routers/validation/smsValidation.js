@@ -1,4 +1,5 @@
-var errors = require('http-errors')
+'use strict'
+
 var smsValidation = (smsInfo) => {
     if(!smsInfo || !smsInfo.sender || !smsInfo.shop_receiver || !smsInfo.contents || !smsInfo.phone || smsInfo.phone.length == 0)
         return false;
