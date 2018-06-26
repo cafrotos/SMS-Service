@@ -45,7 +45,7 @@ router.post('/sms', async (req, res, next) => {
             is_sent: "Đã tạo"
         })
         
-        event.emit(constants.SMS_CREATE, smsInfo);
+        event.emit(constants.SMS_SENDING, smsInfo);
         res.status(200).json(smsInfo);
     }
 })

@@ -1,8 +1,8 @@
 'use strict'
 
 var EVENT_NAME = {
-    SMS_CREATE: "SMS_CREATE",
-    SMS_SENT: "SMS_SENT"
+    SMS_SENDING: "SMS_SENDING",
+    SMS_UPDATE: "SMS_UPDATE"
 };
 
 module.exports = EVENT_NAME;

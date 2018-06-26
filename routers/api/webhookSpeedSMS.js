@@ -27,7 +27,7 @@ router.post('/webhook', (req, res, next) => {
     console.log();
 
     let events = evenEmitter.getInstance();
-    events.emit(constants.SMS_SENT, data);
+    events.emit(constants.SMS_UPDATE, data);
 
     res.status(200).json(data);
 })

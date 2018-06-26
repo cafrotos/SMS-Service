@@ -9,7 +9,7 @@ let Events = evenEmitter.getInstance();
 
 
 //gửi sms
-Events.on(constants.SMS_CREATE, (smsInfo) => {
+Events.on(constants.SMS_SENDING, (smsInfo) => {
     try {
         ManagerSMS.getInstance().sendSMS(smsInfo)   
     } catch (error) {
@@ -19,7 +19,7 @@ Events.on(constants.SMS_CREATE, (smsInfo) => {
 })
 
 //cập nhật tin nhắn trên database
-Events.on(constants.SMS_SENT, (data) => {
+Events.on(constants.SMS_UPDATE, (data) => {
     console.log();
     ManagerSMS.getInstance().updateSMSinDB(data);
 
