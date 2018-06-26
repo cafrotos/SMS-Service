@@ -1,10 +1,10 @@
-const sender = require('../../../routers/validation/senderValidation')
 const Err = require('http-errors');
+const ShippoValidation = require('../../../routers/validation/ShippoValidation')
 
-module.exports = (req, res, next) => {
+module.exports = abc = (req, res, next) => {
     let token = req.get('token');
-    
-    if(sender.getInstance().Validation(token) == false){
+
+    if(ShippoValidation(token) == false){
         let err = new Err(400, "Không nhận xác thực");
         next(err);
     }

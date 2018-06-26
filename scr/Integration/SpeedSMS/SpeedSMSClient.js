@@ -1,6 +1,6 @@
 'use strict'
 
-class SpeedSMSClient extends require('../BasicClient'){
+class SpeedSMSClient extends require('../../lib/Basic/BasicClient'){
     constructor(){
         super('http://api.speedsms.vn/index.php/');
     

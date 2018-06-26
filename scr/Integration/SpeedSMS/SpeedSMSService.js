@@ -2,7 +2,7 @@
 
 const ResponeClient = require('./SpeedSMSClient')
 
-class SpeedSMSService extends require('../BaseIntegration') {
+class SpeedSMSService extends require('../../lib/Basic/BaseIntegration') {
 
     static getInstance(){
         if(!SpeedSMSService.instance){

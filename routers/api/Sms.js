@@ -1,15 +1,14 @@
 'use strict'
 
 const smsValidation = require('../validation/smsValidation');
-const senderValidation = require('../validation/senderValidation');
 const deliReportValidation = require('../validation/webhookValidation');
 const router = require('express').Router();
 const db = require('../../models');
 const bodyParser = require('body-parser');
 const createErr = require('http-errors');
-const evenEmitter = require('../../scr/lib/EvenEmiter')
-const constants = require('../../scr/smsListener/constants')
-const sequelize = require('sequelize');
+const evenEmitter = require('../../scr/lib/EvenEmiter');
+const constants = require('../../scr/smsListener/constants');
+const SmsDataRepositories = require('../../scr/repositories/SMSdataRepositories');
 
 
 router.get('/sms', (req, res, next) => {
@@ -22,7 +21,6 @@ router.post('/sms', async (req, res, next) => {
     
     if(typeof smsInfo === "string") smsInfo = JSON.parse(smsInfo);
     
-    smsInfo.sender = await senderValidation.getInstance().Validation(token);
     //console.log(smsInfo.sender);
 
     if(!smsValidation(smsInfo)){
@@ -38,7 +36,7 @@ router.post('/sms', async (req, res, next) => {
     else {
         let event = evenEmitter.getInstance();
 
-        smsInfo = await db.sms_data.create({
+        smsInfo = await SmsDataRepositories.getInstance().AddObjectToTable({
             tranid: '00000',
             sender: smsInfo.sender,
             shop_receiver: smsInfo.shop_receiver,
@@ -46,10 +44,6 @@ router.post('/sms', async (req, res, next) => {
             phone: smsInfo.phone,
             is_sent: "Đã tạo"
         })
-        .then((res) =>  res.dataValues)
-        .catch((err) => {
-            res.status(400).json(err);
-        });  
         
         event.emit(constants.SMS_CREATE, smsInfo);
         res.status(200).json(smsInfo);
