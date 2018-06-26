@@ -39,6 +39,8 @@ class SpeedSMSService extends require('../../lib/Basic/BaseIntegration') {
             console.log(err);
         };
 
+        console.log(respone);
+
         if(respone.status === 'error'){
             console.log("Lỗi: " + respone.message);
             return null;

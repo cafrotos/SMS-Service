@@ -21,17 +21,19 @@ class SMSManager{
         //gửi sang SpeedSMS
         let tranIdResponse = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
         let smsUpdate = {
-            tranId: tranIdResponse,
-            status: 'Đang gửi'
+            tranid: tranIdResponse,
+            is_sent: 'Đang gửi'
         }
 
         //giả lập đã gửi thành công vs mã tranId = 1235;
         //let tranId = '1235';
 
         if(!tranIdResponse){
-            smsUpdate.tranId = null;
-            smsUpdate.status = "Không gửi được";
+            smsUpdate.tranid = null;
+            smsUpdate.is_sent = "Không gửi được";
         }
+
+        console.log(smsUpdate)
 
         //update in database
         SmsDataRepositories.getInstance().UpdateObjectToTable(smsInfo.id, smsUpdate);

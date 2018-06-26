@@ -19,6 +19,7 @@ class BasicRepositories{
         return await this.tableName.findById(id)
             .then(res => {
                 console.log("Cập nhật thành công!")
+                console.log(newObject);
                 if(res) res.updateAttributes(newObject);
             })
     }
