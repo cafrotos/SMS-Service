@@ -2,7 +2,7 @@
 
 var EventEmitter = require('events');
 
-class ModelEventEmitter extends EventEmitter{
+class ModelEventEmitter extends EventEmitter {
 
     static getEmitter(name) {
         if (!ModelEventEmitter._instances) ModelEventEmitter._instances = {};

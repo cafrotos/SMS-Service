@@ -2,16 +2,16 @@
 
 let BasicClient = require('../../lib/Basic/BasicClient');
 
-class SpeedSMSClient extends BasicClient{
-    constructor(){
+class SpeedSMSClient extends BasicClient {
+    constructor() {
         super('http://api.speedsms.vn/index.php/');
-    
+
     }
 
-    getRestfulRequestOptions(method, url, data, token){
+    getRestfulRequestOptions(method, url, data, token) {
         let body;
-        if(typeof data === 'string') body = JSON.stringify(data);
-        else if(data === '') body = undefined;
+        if (typeof data === 'string') body = JSON.stringify(data);
+        else if (data === '') body = undefined;
         else body = data;
 
         let auth = 'Basic ' + new Buffer(token + ':x').toString('base64');
@@ -31,4 +31,4 @@ class SpeedSMSClient extends BasicClient{
     }
 }
 
-module.exports = SpeedSMSClient
+module.exports = SpeedSMSClient;

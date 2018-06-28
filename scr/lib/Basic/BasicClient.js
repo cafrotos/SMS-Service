@@ -1,6 +1,6 @@
 'use strict'
 
-const rq = require('request-promise')
+const rq = require('request-promise');
 
 class BaseClient {
 
@@ -34,7 +34,7 @@ class BaseClient {
         return await rq(options).then(res => res);
         // return options;
     }
-    
+
     static getInstance(baseUrl = null) {
         if (!BaseClient._instances) {
             BaseClient._instances = new this(baseUrl);
@@ -44,7 +44,7 @@ class BaseClient {
 
     getRestfulRequestOptions(method, url, data, token) {
         let body;
-        if(typeof data === 'string') body = JSON.stringify(data);
+        if (typeof data === 'string') body = JSON.stringify(data);
         else body = data;
 
         let options = {
@@ -57,10 +57,8 @@ class BaseClient {
             body: body,
             json: true // Automatically stringifies the body to JSON
         }
-        return options
+        return options;
     }
 }
 
-//console.log(BaseClient.getInstance().requestToAPI('adf', 'adsf', 'asdf', 'asdf'));
-
-module.exports = BaseClient
+module.exports = BaseClient;

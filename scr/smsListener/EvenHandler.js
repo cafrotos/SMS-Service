@@ -1,8 +1,8 @@
 'use strict'
 
-let fs        = require('fs');
-let path      = require('path');
-let basename  = path.basename(__filename);
+let fs = require('fs');
+let path = require('path');
+let basename = path.basename(__filename);
 
 var readAllEven = () => {
     fs.readdirSync(__dirname)

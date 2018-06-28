@@ -3,13 +3,13 @@ const IntegrationRepositories = require('../../repositories/IntegrationRepositor
 
 class BaseIntegration {
 
-    constructor(name){
+    constructor(name) {
         this.name = name;
     }
 
-    async getIntegration(){
+    async getIntegration() {
         let integration = await IntegrationRepositories.getInstance().getIntegrationByName(this.name);
-        
+
         BaseIntegration.token = integration.token;
         BaseIntegration.enable = integration.enable;
     }
@@ -42,4 +42,4 @@ class BaseIntegration {
 }
 
 
-module.exports = BaseIntegration
+module.exports = BaseIntegration;

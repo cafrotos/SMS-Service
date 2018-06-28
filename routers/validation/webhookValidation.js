@@ -1,9 +1,10 @@
 'use strict'
+const SECRET = 'abcxyz';
 
-var deliReportValidation = (data) => {
-    if(!data || !data.type || !data.tranId || !data.phone || !data.status)
-        return false;
-    else return true;
+var deliReportValidation = (secret) => {
+    if (secret === SECRET)
+        return true;
+    else return false;
 }
 
 module.exports = deliReportValidation;

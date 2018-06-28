@@ -1,28 +1,30 @@
-const db = require('../../models')
+'use strict'
+
+const db = require('../../models');
 let BasicRepositories = require('../lib/Basic/BasicRepositories');
 
 class SMSdataRepositories extends BasicRepositories {
-    constructor(){
+    constructor() {
         super(db.sms_data);
     }
 
-    static getInstance(){
-        if(!SMSdataRepositories.instance){
+    static getInstance() {
+        if (!SMSdataRepositories.instance) {
             SMSdataRepositories.instance = new SMSdataRepositories;
         }
 
         return SMSdataRepositories.instance;
     }
 
-    async UpdateStatusSmsWithTranId(tranId, status){
+    async UpdateStatusSmsWithTranId(tranId, status) {
         return await this.tableName.findOne({
-            where:{
+            where: {
                 tranid: tranId
             }
         }).then(smsData => {
-            if(smsData){
+            if (smsData) {
                 console.log("Update thành công!")
-                let newSMS = {is_sent: status};
+                let newSMS = { is_sent: status };
                 smsData.updateAttributes(newSMS);
             }
         })

@@ -22,13 +22,18 @@ class SMSManager {
         //gửi sang SpeedSMS
         let Response = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
 
-        if (Response.status === SMSManager.SMS_STATUS.ERROR) {
-            Response.data.tranId = null;
+        let smsUpdate = {
+            tranid: '',
+            is_sent: ''
         }
 
-        let smsUpdate = {
-            tranid: Response.data.tranId,
-            is_sent: Response.status
+        if (Response.status === SMSManager.SMS_STATUS.ERROR) {
+            smsUpdate.tranid = null;
+            smsUpdate.is_sent = Response.status;
+        }
+        else {
+            smsUpdate.tranid = Response.data.tranId;
+            smsUpdate.is_sent = Response.status;
         }
 
         let logger = Logger.factory('info');

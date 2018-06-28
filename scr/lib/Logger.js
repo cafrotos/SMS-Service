@@ -11,9 +11,9 @@ let setting = require('../../config/setting.json')[env];
 let MESSAGE = Symbol.for('message');
 
 class Logger {
-    
+
     static factory(channel) {
-        
+
         let log_level = process.env.LOG_LEVEL || (setting['log_level'] || 'debug');
 
         if (!this._loggers[channel] || this._loggers[channel].level != log_level) {

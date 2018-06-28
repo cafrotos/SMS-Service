@@ -11,7 +11,7 @@ let Events = evenEmitter.getInstance();
 //gửi sms
 Events.on(constants.SMS_SENDING, (smsInfo) => {
     try {
-        ManagerSMS.getInstance().sendSMS(smsInfo)   
+        ManagerSMS.getInstance().sendSMS(smsInfo)
     } catch (error) {
         console.log(error);
     }

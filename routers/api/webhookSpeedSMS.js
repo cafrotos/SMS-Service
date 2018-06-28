@@ -1,6 +1,6 @@
 'use strict'
 
-const deliReportValidation = require('../validation/webhookValidation');
+const webhookValidation = require('../validation/webhookValidation');
 const router = require('express').Router();
 const createErr = require('http-errors');
 const evenEmitter = require('../../scr/lib/EvenEmiter')
@@ -17,10 +17,15 @@ router.get('/webhook', (req, res) => {
 })
 
 router.post('/webhook', (req, res, next) => {
+    let secret = req.get('secret');
+
+    if(!webhookValidation(secret)){
+        let err = new createErr(400, "Không nhận dạng được!");
+        next(err);
+    }
+
     let data = req.body;
-    
     data.tranId = data.tranId + '';
-    console.log();
 
     let events = evenEmitter.getInstance();
     events.emit(constants.SMS_UPDATE, data);

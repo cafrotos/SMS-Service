@@ -35,20 +35,29 @@ router.post('/sms', async (req, res, next) => {
 
     else {
         let event = evenEmitter.getInstance();
-
+        let arrSMS = [];
         for (let i = 0; i < smsInfo.phone.length; i++) {
-            SmsDataRepositories.getInstance().AddObjectToTable({
+            let data = {
                 tranid: '00000',
                 sender: smsInfo.sender,
                 shop_receiver: smsInfo.shop_receiver,
                 contents: smsInfo.contents,
                 phone: smsInfo.phone[i],
                 is_sent: "created"
-            })
+            }
+            arrSMS.push(data);
         }
 
-        event.emit(constants.SMS_SENDING, smsInfo);
-        res.status(200).json(smsInfo);
+        await SmsDataRepositories.getInstance().AddObjectToTable(arrSMS)
+            .then(result => {
+                event.emit(constants.SMS_SENDING, smsInfo);
+                res.status(200).json(smsInfo);
+            })
+            .catch(err => {
+                console.log(err);
+                let error = new createErr(500, "Can't create to database");
+                next(error);
+            })
     }
 })
 

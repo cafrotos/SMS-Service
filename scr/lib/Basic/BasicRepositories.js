@@ -1,10 +1,13 @@
-class BasicRepositories{
-    constructor(tableName){
+'use strict'
+
+class BasicRepositories {
+    constructor(tableName) {
         this.tableName = tableName;
     }
 
-    async AddObjectToTable(object){
-        return await this.tableName.create(object)
+    //Nhận vào 1 mảng các đối tượng cần add vào database
+    async AddObjectToTable(object) {
+        return await this.tableName.bulkCreate(object)
             .then(res => {
                 console.log("Đã thêm vào database!");
                 return res.dataValues;
@@ -15,20 +18,21 @@ class BasicRepositories{
             })
     }
 
-    async UpdateObjectToTableById(id, newObject){
+
+    async UpdateObjectToTableById(id, newObject) {
         return await this.tableName.findById(id)
             .then(res => {
-                console.log("Cập nhật thành công!")
+                console.log("Cập nhật thành công!");
                 console.log(newObject);
-                if(res) res.updateAttributes(newObject);
+                if (res) res.updateAttributes(newObject);
             })
     }
 
-    async getAllinDatabase(){
+    async getAllinDatabase() {
         return await this.tableName.findAll()
             .then(res => {
                 let arr = [];
-                for(let i = 0; i < res.length; i++){
+                for (let i = 0; i < res.length; i++) {
                     let data = res[i].dataValues;
                     arr.push(data);
                 }

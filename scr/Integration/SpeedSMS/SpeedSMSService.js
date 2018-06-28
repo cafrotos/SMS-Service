@@ -32,21 +32,14 @@ class SpeedSMSService extends BaseIntegration {
             brandname: brandName
         }
 
-        console.log(data)
-
         let respone;
 
-        try{
+        try {
             respone = await ResponeClient.getInstance().requestToAPI(url, method, data, SpeedSMSService.token);
-        }catch(err){
+        } catch (err) {
             console.log(err);
             return null;
         };
-
-        if (respone.status === 'error') {
-            console.log("Lỗi: " + respone.message);
-            return null;
-        }
 
         return respone;
     }
@@ -54,4 +47,4 @@ class SpeedSMSService extends BaseIntegration {
 }
 
 
-module.exports = SpeedSMSService
+module.exports = SpeedSMSService;
