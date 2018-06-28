@@ -1,53 +1,54 @@
 'use strict'
 
-const ResponeClient = require('./SpeedSMSClient')
+const ResponeClient = require('./SpeedSMSClient');
+const BaseIntegration = require('../../lib/Basic/BaseIntegration');
+const path = require('./path');
 
-class SpeedSMSService extends require('../../lib/Basic/BaseIntegration') {
+class SpeedSMSService extends BaseIntegration {
 
-    static getInstance(){
-        if(!SpeedSMSService.instance){
+    static getInstance() {
+        if (!SpeedSMSService.instance) {
             SpeedSMSService.instance = new SpeedSMSService('SpeedSMS');
         }
 
         return SpeedSMSService.instance;
     }
 
-    async sendAllSMS(smsInfo, brandName = ''){
-        
-        if(!SpeedSMSService.token)await this.getIntegration();
+    async sendAllSMS(smsInfo, brandName = '') {
 
-        if(smsInfo.type == 3 && !brandName){
+        if (!SpeedSMSService.token) await this.getIntegration();
+
+        if (smsInfo.type === '3' && !brandName) {
             brandName = smsInfo.sender;
         }
 
-        let url = 'sms/send';
+        let url = path.SEND_SMS;
         let method = 'POST';
 
         let data = {
-            to: [smsInfo.phone],
+            to: smsInfo.phone,
             content: smsInfo.contents,
             sms_type: smsInfo.type,
             brandname: brandName
         }
 
-        //console.log(data);
+        console.log(data)
 
         let respone;
+
         try{
             respone = await ResponeClient.getInstance().requestToAPI(url, method, data, SpeedSMSService.token);
         }catch(err){
             console.log(err);
+            return null;
         };
 
-        console.log(respone);
-
-        if(respone.status === 'error'){
+        if (respone.status === 'error') {
             console.log("Lỗi: " + respone.message);
             return null;
         }
 
-        return respone.data.tranId;
-
+        return respone;
     }
 
 }

@@ -19,9 +19,9 @@ class IntegrationRepositories extends BasicRepositories{
             where: {
                 name: name
             }
-        }).then(res => {
+        }).then(integration => {
             console.log("Cập nhật thành công!")
-            if(res) res.updateAttributes(newIntegration);
+            if(integration) integration.updateAttributes(newIntegration);
         })
         .catch(err => {
             console.log(err);
@@ -34,11 +34,11 @@ class IntegrationRepositories extends BasicRepositories{
             where: {
                 name: name
             }
-        }).then(res => {
+        }).then(integration => {
             return {
-                name: res.dataValues.name,
-                token: res.dataValues.token,
-                enable: res.dataValues.enable
+                name: integration.dataValues.name,
+                token: integration.dataValues.token,
+                enable: integration.dataValues.enable
             }
         })
         .catch(err => {
@@ -47,7 +47,5 @@ class IntegrationRepositories extends BasicRepositories{
         })
     }
 }
-
-IntegrationRepositories.instance = null;
 
 module.exports = IntegrationRepositories;

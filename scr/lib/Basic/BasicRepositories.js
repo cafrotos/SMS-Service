@@ -15,7 +15,7 @@ class BasicRepositories{
             })
     }
 
-    async UpdateObjectToTable(id, newObject){
+    async UpdateObjectToTableById(id, newObject){
         return await this.tableName.findById(id)
             .then(res => {
                 console.log("Cập nhật thành công!")

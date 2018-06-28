@@ -20,8 +20,8 @@ class ShippoTokenRepositories extends BasicRepositories{
             where: {
                 name: name
             }
-        }).then(res => {
-            if(res) res.updateAttributes(newBranch);
+        }).then(branch => {
+            if(branch) branch.updateAttributes(newBranch);
         })
         .catch(err => {
             console.log(err);
@@ -36,8 +36,5 @@ class ShippoTokenRepositories extends BasicRepositories{
         return ShippoTokenRepositories.data;
     }
 }
-
-ShippoTokenRepositories.instance = null;
-ShippoTokenRepositories.data = null;
 
 module.exports = ShippoTokenRepositories;

@@ -3,53 +3,70 @@
 const SpeedSMSService = require('../Integration/SpeedSMS/SpeedSMSService');
 const db = require('../../models');
 const SmsDataRepositories = require('../repositories/SMSdataRepositories');
+const Logger = require('../lib/Logger');
 
-class SMSManager{
-    constructor(name){
-        SMSManager.instance = name;
+class SMSManager {
+    constructor(name) {
+        this.name = name;
     }
 
-    static getInstance(){
-        if(!SMSManager.instance){
+    static getInstance() {
+        if (!SMSManager.instance) {
             SMSManager.instance = new SMSManager('SMSManager');
         }
         return SMSManager.instance;
     }
 
-    async sendSMS(smsInfo){
-    
+    async sendSMS(smsInfo) {
+
         //gửi sang SpeedSMS
-        let tranIdResponse = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
+        let Response = await SpeedSMSService.getInstance().sendAllSMS(smsInfo);
+
+        if (Response.status === SMSManager.SMS_STATUS.ERROR) {
+            Response.data.tranId = null;
+        }
+
         let smsUpdate = {
-            tranid: tranIdResponse,
-            is_sent: 'Đang gửi'
+            tranid: Response.data.tranId,
+            is_sent: Response.status
         }
 
-        //giả lập đã gửi thành công vs mã tranId = 1235;
-        //let tranId = '1235';
+        let logger = Logger.factory('info');
+        logger.info('Respone call API SpeedSMS: ' + JSON.stringify(Response));
 
-        if(!tranIdResponse){
-            smsUpdate.tranid = null;
-            smsUpdate.is_sent = "Không gửi được";
-        }
+        //update status after send to speed sms in database
+        /***************
+         * Có 5 trạng thái gửi tin nhắn:
+         *     1. success: chuyển thành công lên speedsms;
+         *     2. error: chuyển lên speedsms thất bại;
+         *     3. sent: đã gửi tới sđt cần gửi;
+         *     4. temporary fail: tạm thời không gửi được;
+         *     5. false: Không gửi được tin nhắn
+         **************/
 
-        console.log(smsUpdate)
-
-        //update in database
-        SmsDataRepositories.getInstance().UpdateObjectToTable(smsInfo.id, smsUpdate);
+        SmsDataRepositories.getInstance().UpdateObjectToTableById(smsInfo.id, smsUpdate);
     }
 
-    async updateSMSinDB(data){
-    
-        if(data.status == 0) data.status = 'Đã gửi';
-        else if(data.status > 0 && data.status < 64) data.status = 'Tạm thời thất bại';
-        else data.status = "Gửi thất bại" 
+    async updateFinalyStatusSMSinDB(data) {
 
+        if (data.status == 0) data.status = SMSManager.SMS_STATUS.SENT;
+        else if (data.status > 0 && data.status < 64) data.status = SMSManager.SMS_STATUS.TEMPORARY_FAIL;
+        else data.status = SMSManager.SMS_STATUS.FAIL;
+
+        //Update status sms in SpeedSMS to database
         SmsDataRepositories.getInstance().UpdateStatusSmsWithTranId(data.tranId, data.status);
+
+        let logger = Logger.factory('info');
+        logger.info('Status SMS in SpeedSMS: ' + JSON.stringify(data));
     }
 }
 
-SMSManager.instance = null;
-
+SMSManager.SMS_STATUS = {
+    SUCCESS: "sucess",
+    ERROR: "error",
+    SENT: "sent",
+    TEMPORARY_FAIL: "temporary_fail",
+    FAIL: "fail"
+}
 
 module.exports = SMSManager;

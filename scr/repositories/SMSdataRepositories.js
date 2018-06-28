@@ -19,16 +19,15 @@ class SMSdataRepositories extends BasicRepositories {
             where:{
                 tranid: tranId
             }
-        }).then(res => {
-            if(res){
+        }).then(smsData => {
+            if(smsData){
                 console.log("Update thành công!")
                 let newSMS = {is_sent: status};
-                res.updateAttributes(newSMS);
+                smsData.updateAttributes(newSMS);
             }
         })
     }
 }
 
-SMSdataRepositories.instance = null;
 
 module.exports = SMSdataRepositories;

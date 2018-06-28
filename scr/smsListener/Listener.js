@@ -18,9 +18,9 @@ Events.on(constants.SMS_SENDING, (smsInfo) => {
     console.log();
 })
 
-//cập nhật tin nhắn trên database
+//cập nhật trạng thái tin nhắn trên speedsms lên database
 Events.on(constants.SMS_UPDATE, (data) => {
     console.log();
-    ManagerSMS.getInstance().updateSMSinDB(data);
+    ManagerSMS.getInstance().updateFinalyStatusSMSinDB(data);
 
 })

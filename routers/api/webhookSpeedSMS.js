@@ -17,10 +17,6 @@ router.get('/webhook', (req, res) => {
 })
 
 router.post('/webhook', (req, res, next) => {
-    // if(!deliReportValidation(req.body)){
-    //     let err = new createErr(400, "Có điều gì không ổn");
-    //     next(err);
-    // }
     let data = req.body;
     
     data.tranId = data.tranId + '';

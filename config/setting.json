@@ -1,0 +1,6 @@
+{
+    "development" : {
+        "log_level" : "silly",
+        "log_dir" : "./log/"
+    }
+}
