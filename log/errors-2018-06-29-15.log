@@ -1,0 +1,2 @@
+[2018-06-29 03:02:26] [ERROR] ERRORS: TypeError: SpeedSMSService.getInstance(...).sendAllSMS is not a function {}
+[2018-06-29 03:03:43] [ERROR] ERRORS: TypeError: service.sendSMS is not a function {}

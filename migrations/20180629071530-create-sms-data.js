@@ -23,7 +23,10 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       },
-      is_sent: {
+      type: {
+        type: Sequelize.STRING
+      },
+      status: {
         type: Sequelize.STRING
       },
       createdAt: {

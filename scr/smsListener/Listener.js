@@ -2,7 +2,7 @@
 
 const constants = require('./constants');
 const evenEmitter = require('../lib/EvenEmiter');
-const ManagerSMS = require('../lib/SMSManager');
+const ManagerSMS = require('../lib/SMSManager/SMSManager');
 const db = require('../../models');
 
 let Events = evenEmitter.getInstance();

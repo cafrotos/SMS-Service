@@ -6,11 +6,11 @@ class BasicRepositories {
     }
 
     //Nhận vào 1 mảng các đối tượng cần add vào database
-    async AddObjectToTable(object) {
-        return await this.tableName.bulkCreate(object)
+    async addObjectToTable(object) {
+        return await this.tableName.create(object)
             .then(res => {
                 console.log("Đã thêm vào database!");
-                return res.dataValues;
+                return res;
             })
             .catch(err => {
                 console.info("Lỗi " + err);
@@ -19,7 +19,7 @@ class BasicRepositories {
     }
 
 
-    async UpdateObjectToTableById(id, newObject) {
+    async updateObjectToTableById(id, newObject) {
         return await this.tableName.findById(id)
             .then(res => {
                 console.log("Cập nhật thành công!");

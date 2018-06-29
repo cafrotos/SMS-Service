@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     shop_receiver: DataTypes.STRING,
     contents: DataTypes.STRING,
     phone: DataTypes.STRING,
-    is_sent: DataTypes.STRING
+    type: DataTypes.STRING,
+    status: DataTypes.STRING
   }, {});
   sms_data.associate = function(models) {
     // associations can be defined here

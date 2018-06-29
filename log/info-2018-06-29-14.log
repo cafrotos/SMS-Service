@@ -1,0 +1,5 @@
+[2018-06-29 02:50:02] [INFO] ERRORS: TypeError: SpeedSMSService.getInstance(...).sendAllSMS is not a function {}
+[2018-06-29 02:50:53] [INFO] ERRORS: TypeError: SpeedSMSService.getInstance(...).sendAllSMS is not a function {}
+[2018-06-29 02:51:11] [INFO] ERRORS: TypeError: SpeedSMSService.getInstance(...).sendAllSMS is not a function {}
+[2018-06-29 02:53:33] [INFO] ERRORS: ReferenceError: service is not defined {}
+[2018-06-29 02:54:44] [INFO] ERRORS: TypeError: SpeedSMSService.getInstance(...).sendAllSMS is not a function {}

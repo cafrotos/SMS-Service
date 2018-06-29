@@ -16,7 +16,7 @@ class IntegrationRepositories extends BasicRepositories {
         return IntegrationRepositories.instance;
     }
 
-    async UpdateIntegrationByName(name, newIntegration) {
+    async updateIntegrationByName(name, newIntegration) {
         return await this.tableName.findOne({
             where: {
                 name: name

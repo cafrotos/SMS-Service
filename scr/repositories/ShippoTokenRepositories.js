@@ -15,7 +15,7 @@ class ShippoTokenRepositories extends BasicRepositories {
         return ShippoTokenRepositories.instance;
     }
 
-    async UpdateByName(name, newBranch) {
+    async updateByName(name, newBranch) {
         return await this.tableName.findOne({
             where: {
                 name: name

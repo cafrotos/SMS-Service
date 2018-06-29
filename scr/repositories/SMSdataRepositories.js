@@ -16,7 +16,7 @@ class SMSdataRepositories extends BasicRepositories {
         return SMSdataRepositories.instance;
     }
 
-    async UpdateStatusSmsWithTranId(tranId, status) {
+    async updateStatusSmsWithTranId(tranId, status) {
         return await this.tableName.findOne({
             where: {
                 tranid: tranId
@@ -24,7 +24,7 @@ class SMSdataRepositories extends BasicRepositories {
         }).then(smsData => {
             if (smsData) {
                 console.log("Update thành công!")
-                let newSMS = { is_sent: status };
+                let newSMS = {status: status };
                 smsData.updateAttributes(newSMS);
             }
         })

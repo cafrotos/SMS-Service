@@ -3,12 +3,17 @@
 const ResponeClient = require('./SpeedSMSClient');
 const BaseIntegration = require('../../lib/Basic/BaseIntegration');
 const path = require('./path');
+const TypeofSMS = require('../../lib/SMSManager/TypeofSMS')
 
 class SpeedSMSService extends BaseIntegration {
 
-    static getInstance() {
+    static async getInstance() {
         if (!SpeedSMSService.instance) {
             SpeedSMSService.instance = new SpeedSMSService('SpeedSMS');
+            
+            if (!SpeedSMSService.instance.token || !SpeedSMSService.instance.enable)
+                await SpeedSMSService.instance.getIntegration();
+
         }
 
         return SpeedSMSService.instance;
@@ -16,9 +21,12 @@ class SpeedSMSService extends BaseIntegration {
 
     async sendAllSMS(smsInfo, brandName = '') {
 
-        if (!SpeedSMSService.token) await this.getIntegration();
+        if(!SpeedSMSService.enable){
+            console.log('Đối tác không còn hoạt động');
+            throw Error('This Integration not enable');
+        }
 
-        if (smsInfo.type === '3' && !brandName) {
+        if (smsInfo.type === TypeofSMS.BRANDNAME && !brandName) {
             brandName = smsInfo.sender;
         }
 
@@ -26,7 +34,7 @@ class SpeedSMSService extends BaseIntegration {
         let method = 'POST';
 
         let data = {
-            to: smsInfo.phone,
+            to: [smsInfo.phone],
             content: smsInfo.contents,
             sms_type: smsInfo.type,
             brandname: brandName
@@ -45,6 +53,5 @@ class SpeedSMSService extends BaseIntegration {
     }
 
 }
-
 
 module.exports = SpeedSMSService;
