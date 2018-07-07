@@ -18,9 +18,9 @@ router.get('/sms', (req, res, next) => {
 
 router.post('/sms', async (req, res, next) => {
     let smsInfo = req.body.smsInfo;
-    let token = req.get('token');
+    // let token = req.get('token');
 
-    if (typeof smsInfo === "string") smsInfo = JSON.parse(smsInfo);
+    if (typeof smsInfo === "string" && smsInfo != null) smsInfo = JSON.parse(smsInfo);
 
     if (!smsValidation(smsInfo)) {
         let err = new createErr(400, "Thông tin gửi SMS không đúng");

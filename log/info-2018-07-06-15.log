@@ -1,0 +1,14 @@
+[2018-07-06 03:45:17] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:49:34] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:50:23] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:50:46] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:50:52] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:52:09] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:55:02] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:57:16] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:59:11] [INFO] Respone call API SpeedSMS: {"status":"error","code":"500","message":"Internal error 4"} {}
+[2018-07-06 03:59:11] [INFO] Respone call API SpeedSMS: {"status":"error","code":"110","message":"SMS content not registered, please contact +84979051021 for support. Thanks!"} {}
+[2018-07-06 03:59:11] [INFO] Respone call API SpeedSMS: {"status":"error","code":"110","message":"SMS content not registered, please contact +84979051021 for support. Thanks!"} {}
+[2018-07-06 03:59:11] [INFO] Respone call API SpeedSMS: {"status":"error","code":"300","message":"Balance not enough"} {}
+[2018-07-06 03:59:11] [INFO] Respone call API SpeedSMS: {"status":"error","code":"500","message":"Internal error 4"} {}
+[2018-07-06 03:59:11] [INFO] Respone call API SpeedSMS: {"status":"error","code":"601","message":"Selected device not found"} {}
